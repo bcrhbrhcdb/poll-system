@@ -1,3 +1,4 @@
+// index.js
 document.addEventListener('DOMContentLoaded', async () => {
     const userInfo = document.getElementById('user-info');
     const pollsContainer = document.getElementById('polls-container');
@@ -21,10 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
         }
 
-        // Fetch and display polls
         await fetchAndDisplayPolls();
-        
-        // Start polling for updates
         startPollingForUpdates();
     } catch (error) {
         console.error('Error initializing app:', error);
@@ -53,7 +51,7 @@ async function fetchAndDisplayPolls() {
         for (const poll of polls) {
             const pollElement = createPollElement(poll);
             pollsContainer.appendChild(pollElement);
-            await updatePollDisplay(poll.id); // Update each poll's results
+            await updatePollDisplay(poll.id);
         }
     } catch (error) {
         console.error('Error fetching polls:', error);
@@ -160,7 +158,6 @@ async function updatePollDisplay(pollId) {
             <p>Total votes: ${totalVotes}</p>
         `;
 
-        // Check if the current user has voted
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
             const { data: userVote } = await supabase
