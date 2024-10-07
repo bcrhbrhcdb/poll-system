@@ -1,4 +1,5 @@
-// index.js
+import { supabase } from './supabase.js'
+
 document.addEventListener('DOMContentLoaded', async () => {
     const userInfo = document.getElementById('user-info');
     const pollsContainer = document.getElementById('polls-container');
