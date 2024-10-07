@@ -4,5 +4,23 @@
   },
   "dependencies": {
     "servor": "^4.0.2"
-  }
+  },
+  "name": "poll-system",
+  "description": "[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/bcrhbrhcdb/poll-system)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcrhbrhcdb/poll-system.git"
+  },
+  "keywords": [
+    "start"
+  ],
+  "author": "noob",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcrhbrhcdb/poll-system/issues"
+  },
+  "homepage": "https://github.com/bcrhbrhcdb/poll-system#readme"
 }
