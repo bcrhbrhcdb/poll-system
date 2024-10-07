@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = supabase.auth.user();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user || user.email !== 'apet2804@mpsedu.org') {
         alert('Unauthorized access');
-        window.location.href = 'index.html';
+        window.location.href = 'signup.html';
         return;
     }
 

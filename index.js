@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userInfo = document.getElementById('user-info');
     const pollsContainer = document.getElementById('polls-container');
 
-    const user = supabase.auth.user();
+    const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
         userInfo.innerHTML = `
@@ -54,7 +54,8 @@ function createPollElement(poll) {
 
     pollDiv.querySelector('form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (!supabase.auth.user()) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
             alert('Please log in to vote.');
             return;
         }
@@ -70,7 +71,7 @@ function createPollElement(poll) {
 }
 
 async function vote(pollId, optionIndex) {
-    const user = supabase.auth.user();
+    const { data: { user } } = await supabase.auth.getUser();
     const { data: existingVote, error: checkError } = await supabase
         .from('Votes')
         .select('*')
