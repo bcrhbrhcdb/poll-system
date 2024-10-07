@@ -18,8 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         } else {
             userInfo.innerHTML = `
-                <a href="login.html">Log In</a> | 
-                <a href="signup.html">Sign Up</a>
+                <p>Please <a href="login.html">log in</a> or <a href="signup.html">sign up</a> to vote.</p>
             `;
         }
 
@@ -56,7 +55,7 @@ async function fetchAndDisplayPolls() {
         }
     } catch (error) {
         console.error('Error fetching polls:', error);
-        pollsContainer.innerHTML = '<p>Error loading polls. Please try again later.</p>';
+        pollsContainer.innerHTML = '<p>Error loading polls. Please check your internet connection and try again later.</p>';
     }
 }
 

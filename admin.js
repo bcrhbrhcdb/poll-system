@@ -1,25 +1,28 @@
+import { supabase } from './supabase.js'
+
 document.addEventListener('DOMContentLoaded', async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user || user.email !== 'apet2804@mpsedu.org') {
-        alert('Unauthorized access');
-        window.location.href = 'signup.html';
+    if (!user) {
+        alert('You must be logged in to access the admin panel.');
+        window.location.href = 'index.html';
         return;
     }
 
-    document.getElementById('poll-form').addEventListener('submit', async (e) => {
+    const createPollForm = document.getElementById('create-poll-form');
+    createPollForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const question = document.getElementById('question').value;
         const options = document.getElementById('options').value.split(',').map(option => option.trim());
 
-        const { data, error } = await supabase
-            .from('Polls')
-            .insert({ question, options });
-
-        if (error) {
-            alert('Error creating poll: ' + error.message);
-        } else {
+        try {
+            const { data, error } = await supabase
+                .from('Polls')
+                .insert({ question, options, created_by: user.id });
+            if (error) throw error;
             alert('Poll created successfully!');
-            document.getElementById('poll-form').reset();
+            createPollForm.reset();
+        } catch (error) {
+            alert('Error creating poll: ' + error.message);
         }
     });
 });
