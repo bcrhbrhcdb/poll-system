@@ -10,10 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const { data, error } = await supabase.auth.signInWithPassword({ email, password });
             if (error) throw error;
+            console.log('Login successful:', data);
             alert('Logged in successfully!');
             window.location.href = 'index.html';
         } catch (error) {
-            alert('Error logging in: ' + error.message);
+            console.error('Login error:', error);
+            alert('Error logging in: ' + (error.message || 'Unknown error occurred'));
         }
     });
 });

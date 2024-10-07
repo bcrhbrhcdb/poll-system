@@ -8,12 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         try {
-            const { data, error } = await supabase.auth.signUp({ email, password });
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: `${window.location.origin}/index.html`
+                }
+            });
             if (error) throw error;
+            console.log('Signup successful:', data);
             alert('Signed up successfully! Please check your email for verification.');
             window.location.href = 'index.html';
         } catch (error) {
-            alert('Error signing up: ' + error.message);
+            console.error('Signup error:', error);
+            alert('Error signing up: ' + (error.message || 'Unknown error occurred'));
         }
     });
 });
