@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         try {
+            console.log('Attempting signup...');
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
@@ -15,13 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     emailRedirectTo: `${window.location.origin}/index.html`
                 }
             });
-            if (error) throw error;
+            
+            if (error) {
+                console.error('Supabase signup error:', error);
+                throw error;
+            }
+            
             console.log('Signup successful:', data);
             alert('Signed up successfully! Please check your email for verification.');
             window.location.href = 'index.html';
         } catch (error) {
             console.error('Signup error:', error);
-            alert('Error signing up: ' + (error.message || 'Unknown error occurred'));
+            if (error.message.includes("Unexpected token '<'")) {
+                alert('There was a network error. Please check your internet connection and try again.');
+            } else {
+                alert('Error signing up: ' + (error.message || 'Unknown error occurred'));
+            }
         }
     });
 });
